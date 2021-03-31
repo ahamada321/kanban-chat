@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+// @import "~@fullcalendar/core/main.css";
+// @import "~@fullcalendar/daygrid/main.css";
+// @import "~@fullcalendar/timegrid/main.css";
+@import "~ngx-bar-rating/themes/br-stars-theme";
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.owl-dt-calendar-table {
+  .owl-dt-calendar-cell-selected {
+    background-color: #ff5a5f;
+  }
+  .owl-dt-calendar-cell-content {
+    font-size: 1.1em;
+  }
+}
+.owl-dt-container {
+  font-size: 0.9rem;
+}
+.cdk-global-overlay-wrapper,
+.cdk-overlay-container {
+  z-index: 99999 !important; // Adding due to mobile header has broken when opened owl calendar.
+}
+
+.form-control::placeholder {
+  color: #b3b3b3;
+}
+
+// /* Importing Bootstrap SCSS file. */
+// @import "~bootstrap/scss/bootstrap";

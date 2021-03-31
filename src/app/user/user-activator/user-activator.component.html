@@ -1,0 +1,134 @@
+<div class="wrapper">
+    <div class="page-header page-header-xs settings-background" style="background-image: url('./assets/img/lp/back-image.jpg')">
+        <div class="filter"></div>
+        <div class="content-center">
+            <div class="container">
+                <div class="space-50"></div>
+                <h1 class="title">Let's become Trainer.</h1>
+            </div>
+        </div>
+    </div>
+    <div class="profile-content section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 ml-auto mr-auto">
+                    <form *ngIf="userData && (!userData.userRole || userData.userRole === 'User')" #userForm="ngForm" class="settings-form" (ngSubmit)="updateUser(userForm)">
+                        <div class="form-group">
+                            <h6>ベータ版の為トレーナー申請には紹介コードが必要です <span class="icon-danger">*</span></h6>
+                            <input 
+                                type="text" 
+                                class="form-control border-input"
+                                placeholder="SHOKAI-CODE" 
+                                [(ngModel)]="userData.affiliateCode" 
+                                (ngModelChange)="userData.affiliateCode = $event.toUpperCase()"
+                                name="affiliateCode" 
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <h6>名前 <span class="icon-danger">*</span></h6>
+                            <input type="text" 
+                                class="form-control border-input" 
+                                placeholder="あなたの名前（必須）" 
+                                [(ngModel)]="userData.username" 
+                                name="username" 
+                                required 
+                                />
+                        </div>
+                        <!-- <div class="form-group">
+                            <h6>通知受信用のEメール <span class="icon-danger">*</span></h6>
+                            <input type="text" class="form-control border-input" placeholder="Email Address" [ngModel]="userData.email" name="email" required>
+                        </div> -->
+
+                        <div class="form-group">
+                            <h6>現住所（郵便番号） <span class="icon-danger">*</span></h6>
+                            <input type="number" class="form-control border-input" placeholder="（例）160-0022" [(ngModel)]="userData.postalcode" name="postalcode" required>
+                        </div>
+
+                        <div class="form-group">
+                            <h6>現住所（都道府県名から部屋番号（ある場合）までを入力） <span class="icon-danger">*</span></h6>
+                            <input type="text" class="form-control border-input" placeholder="（例）東京都新宿区1-1-1　○○ビル123号" [(ngModel)]="userData.address" name="address" required>
+                        </div>
+
+                        <div class="form-group">
+                            <h6>身分証（表） <span class="icon-danger">*</span></h6>
+                            <div class="row">
+                                <div class="col-md-10 ml-auto mr-auto">
+                                    <!-- <app-image-upload></app-image-upload> -->
+                                    <app-image-upload-myver 
+                                        [inputLabel]="'免許証・住基カード等（表面）'"
+                                        [inputImage]="userData.idOfPhoto1"
+                                        (imageUploaded)="userData.idOfPhoto1=$event"
+                                        >
+                                    </app-image-upload-myver>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h6>身分証（裏）</h6>
+                            <div class="row">
+                                <div class="col-md-10 ml-auto mr-auto">
+                                    <!-- <app-image-upload></app-image-upload> -->
+                                    <app-image-upload-myver 
+                                        [inputLabel]="'免許証・住基カード等（裏面）'"
+                                        [inputImage]="userData.idOfPhoto2"
+                                        (imageUploaded)="userData.idOfPhoto2=$event"
+                                        >
+                                    </app-image-upload-myver>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h6>連絡先 <span class="icon-danger">*</span></h6>
+                            <input type="number" class="form-control border-input" placeholder="（例）08012345678" [(ngModel)]="userData.phone" name="phone" required>
+                        </div>
+
+                        <div class="form-group">
+                            <h6>売上振込先 <span class="icon-danger">*</span></h6>
+                            <input type="text" class="form-control border-input" placeholder="（例）○○銀行　○○支店　普通　12345678" [(ngModel)]="userData.bankAccount" name="bankAccount" required>
+                        </div>
+
+                        <ul class="notifications">
+                            <!-- <li class="notification-item">
+                                Updates regarding platform changes
+                                <bSwitch
+                                    [switch-on-color]="'info'"
+                                    [switch-off-color]="'info'"
+                                    [(ngModel)]="state_info"
+                                    name="first_switch">
+                                </bSwitch>
+                            </li> -->
+                            <li class="notification-item">
+                                <a [routerLink]="['/terms']" target="_blank">利用規約</a>に同意いただける場合は右のチェックを入れる
+                                <bSwitch
+                                    [switch-on-color]="'primary'"
+                                    [switch-off-color]="'primary'"
+                                    switch-on-text="<i class='nc-icon nc-check-2'></i>"
+                                    switch-off-text="<i class='nc-icon nc-simple-remove'></i>"
+                                    [(ngModel)]="agree_switch"
+                                    name="agree_switch">
+                                </bSwitch>
+                            </li>
+                        </ul>
+
+                        <div class="text-center">
+                            <button 
+                                [disabled]="!(userForm.form.valid && userData.idOfPhoto1 && agree_switch && userData.affiliateCode ==='APP-SHACHO')" 
+                                type="submit" 
+                                class="btn btn-lg btn-primary">利用規約に同意しトレーナー登録申請する</button>
+                        </div>
+                        <div class="space-top"></div>
+                        <div class="description">
+                            <p>※ ベータ版につき、もし挙動のおかしなところや操作性でのご意見・ご要望・ご質問等ございましたら、紹介者限定グループLINEまたはお問い合わせフォームよりお気軽にお問い合わせください。</p>
+                            <p>※ 2営業日以内に迷惑フォルダ含め承認・否認メールが届かない場合はお問合せください。</p>
+                        </div>
+                    </form>
+                    <div class="space-top"></div>
+                    <div *ngIf="errors && errors.length > 0" class="alert alert-danger">
+                        <p *ngFor="let error of errors">{{ error.detail }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

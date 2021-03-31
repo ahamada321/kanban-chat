@@ -1,0 +1,310 @@
+<section id="rentalDetail" *ngIf="rental">
+  <div
+    class="page-header page-header-small"
+    data-parallax="true"
+    [ngStyle]="{ 'background-image': 'url(' + rental.image + ')' }"
+  >
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <div class="space-110"></div>
+        <div class="row">
+          <div class="col-md-7 text-left">
+            <h1 class="title">{{ rental.rentalname }}</h1>
+            <h5>{{ rental.cardDescription }}</h5>
+            <!-- <h5>{{ rental.description }}</h5> -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-7 text-left">
+            <div class="buttons">
+              <a
+                *ngIf="rental.instagram"
+                href="https://www.instagram.com/{{ rental.instagram }}"
+                class="btn btn-neutral btn-link btn-just-icon"
+                target="_blank"
+                ><i class="fa fa-instagram"></i>
+              </a>
+              <a
+                *ngIf="rental.twitter"
+                href="https://twitter.com/{{ rental.twitter }}"
+                class="btn btn-neutral btn-link btn-just-icon"
+                target="_blank"
+                ><i class="fa fa-twitter"></i>
+              </a>
+              <a
+                *ngIf="rental.youtube"
+                href="{{ rental.youtube }}"
+                class="btn btn-neutral btn-link btn-just-icon"
+                target="_blank"
+                ><i class="fa fa-youtube"></i>
+              </a>
+              <a
+                *ngIf="rental.facebook"
+                href="{{ rental.facebook }}"
+                class="btn btn-neutral btn-link btn-just-icon"
+                target="_blank"
+                ><i class="fa fa-facebook-square"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <div class="section" id="detail-of-lessons">
+      <div class="container">
+        <div class="col-md-10 ml-auto mr-auto">
+          <div class="section-description text-center">
+            <h6 class="text-primary">Profile</h6>
+            <!-- <h2 class="title">{{ rental.course1Title }}</h2> -->
+            <h2 class="title">自己紹介</h2>
+            <p class="description pre-wrap">
+              {{ rental.description }}
+            </p>
+          </div>
+        </div>
+        <br />
+      </div>
+
+      <div class="space-100"></div>
+      <div class="blog-1">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 ml-auto mr-auto">
+              <div class="card card-plain card-blog">
+                <div class="row">
+                  <div class="col-md-8 col-11 ml-auto mr-auto">
+                    <div class="card-body">
+                      <h6 class="card-category text-primary">
+                        価値提案を打診したり、サービスを予約しよう
+                      </h6>
+                      <h3 class="card-title">{{ rental.course1Title }}</h3>
+                      <p class="card-description pre-wrap">
+                        {{ rental.course1Description }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-md-4 ml-auto mr-auto">
+                    <a
+                      *ngIf="rental.lineURL && !rental.instagram"
+                      (click)="onLineClicked(rental.lineURL)"
+                    >
+                      <div class="line-icon-img">
+                        <img
+                          src="./assets/img/icons/line-messenger.svg"
+                          alt="..."
+                        />
+                      </div>
+                    </a>
+
+                    <a
+                      *ngIf="rental.instagram"
+                      (click)="onInstagramClicked(rental.instagram)"
+                    >
+                      <div class="line-icon-img">
+                        <img src="./assets/img/icons/instagram.svg" alt="..." />
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="row">
+            <div class="col-md-10 ml-auto mr-auto">
+              <div class="card card-plain card-blog">
+                <div class="row">
+                  <div class="col-md-8 col-11 ml-auto mr-auto">
+                    <div class="card-body">
+                      <h6 class="card-category text-primary">Entry course</h6>
+                      <h3 class="card-title">
+                        {{ rental.course2Title }}
+                      </h3>
+                      <p class="card-description">
+                        {{ rental.course2Description }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-10 ml-auto mr-auto">
+                    <button
+                      *ngIf="!auth.isAuthenticated()"
+                      (click)="modalLoginOpen()"
+                      class="card"
+                      data-background="color"
+                      data-color="green"
+                    >
+                      <div class="card-body text-center">
+                        <h6 class="card-category">ログイン後に予約できます</h6>
+                        <h2 class="card-title">60min</h2>
+                        <p class="card-description">
+                          60minのパーソナルトレーニングが受けられるチケットです.
+                        </p>
+                        <div class="card-footer">
+                          <div class="btn btn-neutral btn-round">
+                            {{ rental.hourlyPrice }}円 / 60分
+                          </div>
+                        </div>
+                      </div>
+                    </button>
+                    <button
+                      *ngIf="isYourRental() && auth.isAuthenticated()"
+                      class="card"
+                      data-background="color"
+                      data-color="gray"
+                    >
+                      <div class="card-body text-center">
+                        <h6 class="card-category">自分のコースは選べません</h6>
+                        <h2 class="card-title">60min</h2>
+                        <p class="card-description">
+                          自分のコースは予約できません
+                        </p>
+                        <div class="card-footer">
+                          <div class="btn btn-neutral btn-round">
+                            {{ rental.hourlyPrice }}円 / 60分
+                          </div>
+                        </div>
+                      </div>
+                    </button>
+                    <button
+                      *ngIf="!isYourRental() && auth.isAuthenticated()"
+                      (click)="modalBookingOpen(60)"
+                      class="card"
+                      data-background="color"
+                      data-color="green"
+                    >
+                      <div class="card-body text-center">
+                        <h6 class="card-category">このコースを選ぶ</h6>
+                        <h2 class="card-title">60min</h2>
+                        <p class="card-description">
+                          60minのパーソナルトレーニングが受けられるチケットです.
+                        </p>
+                        <div class="card-footer">
+                          <div class="btn btn-neutral btn-round">
+                            {{ rental.hourlyPrice }}円 / 60分
+                          </div>
+                        </div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+    <!--     *********     Reviews & Comments     *********      -->
+    <div class="section section-dark text-center">
+      <div class="container">
+        <h2 class="title">求めていること</h2>
+        <h4 class="title">{{ rental.memo }}</h4>
+        <div class="row">
+          <!-- <ng-container *ngIf="reviews && reviews.length > 0">
+            <div class="col-md-4" *ngFor="let review of reviews">
+              <div class="card card-profile card-plain">
+                <div class="card-avatar">
+                  <a href="#avatar"
+                    ><img
+                      src="./assets/img/faces/clem-onojeghuo-3.jpg"
+                      alt="..."
+                  /></a>
+                </div>
+                <div class="card-block">
+                  <div class="author">
+                    <h4 class="card-title">{{ review.user.username }}</h4>
+                    <h6 class="card-category">Product Manager</h6>
+                    <bar-rating
+                      [rate]="review.rating"
+                      [max]="5"
+                      [theme]="'stars'"
+                      [readOnly]="true"
+                    ></bar-rating>
+                  </div>
+                  <p class="card-description text-center">
+                    {{ review.comment }}
+                  </p>
+                </div>
+                <div class="card-footer text-center"></div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="!reviews || reviews.length == 0">
+            <div class="card card-profile card-plain ml-auto mr-auto">
+              <div class="card-avatar">
+                <a href="#avatar"
+                  ><img src="./assets/img/faces/clem-onojeghuo-3.jpg" alt="..."
+                /></a>
+              </div>
+              <div class="card-block">
+                <div class="author">
+                  <h4 class="card-title">まだ感想はありません！</h4>
+                  <h6 class="card-category"></h6>
+                </div>
+              </div>
+              <div class="card-footer text-center"></div>
+            </div>
+          </ng-container> -->
+        </div>
+      </div>
+    </div>
+
+    <!--     *********     Photo Gallery      *********      -->
+    <div *ngIf="rental.gallery1" class="section section-sections">
+      <div class="container">
+        <div class="col-md-8 ml-auto mr-auto">
+          <div class="section-description text-center">
+            <h2 class="title">Photo Gallery</h2>
+            <!-- <h5 class="description"> Build pages in no time using pre-made sections! We have created multiple sections for you to put together and customise into pixel perfect example pages. From headers to footers, you will be able to choose the best combination for your project.</h5> -->
+            <br />
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="section-cols">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-4" *ngIf="rental.gallery1">
+                <img src="{{ rental.gallery1 }}" alt="" />
+              </div>
+              <div class="col-md-4" *ngIf="rental.gallery2">
+                <img src="{{ rental.gallery2 }}" alt="" />
+              </div>
+              <div class="col-md-4" *ngIf="rental.gallery3">
+                <img src="{{ rental.gallery3 }}" alt="" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4" *ngIf="rental.gallery4">
+                <img src="{{ rental.gallery4 }}" alt="" />
+              </div>
+              <div class="col-md-4" *ngIf="rental.gallery5">
+                <img src="{{ rental.gallery5 }}" alt="" />
+              </div>
+              <div class="col-md-4" *ngIf="rental.gallery6">
+                <img src="{{ rental.gallery6 }}" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--     *********     Call to action      *********      -->
+    <div class="section text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 ml-auto mr-auto">
+            <h2 class="title">会えるエリア</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <app-bottom-navbar [rental]="rental"></app-bottom-navbar> -->
+</section>

@@ -1,0 +1,79 @@
+{
+    "rentals": [
+        {
+            "isShared": true,
+            "isApproved": true,
+            "businesshour_enabled_sun": true,
+            "businesshour_enabled_mon": true,
+            "businesshour_enabled_tue": true,
+            "businesshour_enabled_wed": true,
+            "businesshour_enabled_thu": true,
+            "businesshour_enabled_fri": true,
+            "businesshour_enabled_sat": true,
+            "favouritesFrom": [],
+            "bookings": [],
+            "image": "https://share-pf-s3-dev.s3.amazonaws.com/1578308178805",
+            "gallery1": "https://share-pf-s3-dev.s3.amazonaws.com/1578463452842",
+            "gallery2": "https://share-pf-s3-dev.s3.amazonaws.com/1578463842736",
+            "gallery3": "https://share-pf-s3-dev.s3.amazonaws.com/1578464153705",
+            "gallery4": "https://share-pf-s3-dev.s3.amazonaws.com/1578464923922",
+            "gallery5": "https://share-pf-s3-dev.s3.amazonaws.com/1578465097168",
+            "gallery6": "https://share-pf-s3-dev.s3.amazonaws.com/1578465237442",
+            "rentalname": "えなこ",
+            "cardDescription": "コスプレイヤー",
+            "province": "東京都",
+            "nearStation": "新宿",
+            "description": "こんにちはえなこです！\n\"コスプレ\"というテーマで地上波に番組を持たせていただけて、コスプレイヤーとして本当に嬉しく思います！\nこれからもコスプレに関わっている様々な方をゲストにお呼びしていきますので、是非見てくださいね( ´ ▽ ` )ﾉ",
+            "course1Title": "秋葉原でお茶コース",
+            "course1Description": "一緒に池袋でデートするコースです。いろんなディープスポットをご案内します。\n施設やお店が多すぎて、行き先に困りませんか？\n待ち合わせにも便利な駅近くの商業施設や新スポット、喧騒を離れてのんびりできる公園や、新大久保コリアンタウンまで。「新宿エリア」の定番デートスポットから穴場まで幅広くご紹介します。",
+            "course2Title": "ディープスポット案内コース",
+            "course2Description": "一緒に秋葉原デートするコースです。いろんなディープスポットをご案内します。\n施設やお店が多すぎて、行き先に困りませんか？\n待ち合わせにも便利な駅近くの商業施設や新スポット、喧騒を離れてのんびりできる公園や、新大久保コリアンタウンまで。「新宿エリア」の定番デートスポットから穴場まで幅広くご紹介します。",
+
+            "email": "enako@enako.com",
+            "hourlyPrice": 10000
+        },
+        {
+            "isShared": true,
+            "isApproved": false,
+            "businesshour_enabled_sun": true,
+            "businesshour_enabled_mon": true,
+            "businesshour_enabled_tue": true,
+            "businesshour_enabled_wed": true,
+            "businesshour_enabled_thu": true,
+            "businesshour_enabled_fri": true,
+            "businesshour_enabled_sat": true,
+            "favouritesFrom": [],
+            "bookings": [],
+            "image": "https://share-pf-s3-dev.s3.amazonaws.com/1578310726400",
+            "gallery1": "https://share-pf-s3-dev.s3.amazonaws.com/1578468527301",
+            "gallery2": "https://share-pf-s3-dev.s3.amazonaws.com/1578468589223",
+            "gallery3": "https://share-pf-s3-dev.s3.amazonaws.com/1578468733655",
+            "rentalname": "伊織もえ",
+            "cardDescription": "コスプレイヤー",
+            "province": "東京都",
+            "nearStation": "渋谷",
+            "description": "こんにちは！伊織もえです！\n\"コスプレ\"というテーマで地上波に番組を持たせていただけて、コスプレイヤーとして本当に嬉しく思います！\nこれからもコスプレに関わっている様々な方をゲストにお呼びしていきますので、是非見てくださいね( ´ ▽ ` )ノ",
+            "course1Title": "エントリーコース",
+            "course1Description": "渋谷でデートするコースです。\n施設やお店が多すぎて、行き先に困りませんか？\n待ち合わせにも便利な駅近くの商業施設や新スポット、喧騒を離れてのんびりできる公園や、新大久保コリアンタウンまで。「新宿エリア」の定番デートスポットから穴場まで幅広くご紹介します。",
+            "course2Title": "渋谷でデートコース",
+            "course2Description": "施設やお店が多すぎて、行き先に困りませんか？\n待ち合わせにも便利な駅近くの商業施設や新スポット、喧騒を離れてのんびりできる公園や、新大久保コリアンタウンまで。「新宿エリア」の定番デートスポットから穴場まで幅広くご紹介します。",
+            "email": "moe@moe.com",
+            "hourlyPrice": 10000
+        }
+    ],
+    "users": [
+        {
+            "username": "Admin",
+            "email": "a.hamada21@gmail.com",
+            "password": "test1",
+            "isVerified": "true",
+            "userRole": "Owner"
+        },
+        {
+            "username": "テスト太郎",
+            "email": "a.hamada.free@gmail.com",
+            "password": "test1",
+            "isVerified": "true"
+        }
+    ]
+}

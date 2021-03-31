@@ -1,0 +1,322 @@
+<div class="wrapper" *ngIf="rental">
+  <div
+    class="page-header page-header-xs settings-background"
+    [ngStyle]="{ 'background-image': 'url(' + rental.image + ')' }"
+  >
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <div class="space-50"></div>
+        <div class="motto text-center">
+          <h1>受付日時管理</h1>
+          <h3>受付日時の管理ができます</h3>
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="profile-content section">
+    <div class="container">
+      <!-- <div class="row">
+                <div class="profile-picture">
+                    <app-image-upload [image]="'./assets/img//default-avatar.png'"></app-image-upload>
+                </div>
+            </div> -->
+      <div class="project-pills">
+        <!-- <ngb-tabset
+          [justify]="'center'"
+          type="pills"
+          class="nav-pills nav-pills-primary justify-content-center"
+        >
+          <ngb-tab title="通常">
+            <ng-template ngbTabContent>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="space-top"></div>
+                  <h5 class="description text-center">
+                    曜日毎に定例受付時間を設定できます.
+                  </h5>
+                  <h5 class="description text-center">
+                    OFFに切り替えた曜日で予約確定済の予約は保護されます.
+                  </h5>
+                  <div class="space-top"></div>
+                </div>
+              </div>
+              <form
+                #businessHoursForm="ngForm"
+                (ngSubmit)="updatebusinessHours(businessHoursForm)"
+              >
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="text-center">受付</th>
+                        <th>曜日</th>
+                        <th>受付開始</th>
+                        <th>受付終了</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="text-center">
+                          <bSwitch
+                            [ngModel]="businessHoursData.sun_enabled"
+                            name="sun_enabled"
+                            [switch-on-color]="'primary'"
+                            [switch-off-color]="'primary'"
+                          >
+                          </bSwitch>
+                        </td>
+                        <td>日曜</td>
+                        <td>
+                          <ngb-timepicker
+                            [ngModel]="businessHoursData.sun_startAt"
+                            name="sun_startAt"
+                            [hourStep]="hourStep"
+                            [minuteStep]="minuteStep"
+                          >
+                          </ngb-timepicker>
+                        </td>
+                        <td>
+                          <ngb-timepicker
+                            [ngModel]="businessHoursData.sun_endAt"
+                            name="sun_endAt"
+                            [hourStep]="hourStep"
+                            [minuteStep]="minuteStep"
+                          >
+                          </ngb-timepicker>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-center">
+                          <bSwitch
+                            [ngModel]="businessHoursData.mon_enabled"
+                            name="mon_enabled"
+                            [switch-on-color]="'primary'"
+                            [switch-off-color]="'primary'"
+                          >
+                          </bSwitch>
+                        </td>
+                        <td>月曜</td>
+                        <td>
+                          <ngb-timepicker
+                            [ngModel]="businessHoursData.mon_startAt"
+                            name="mon_startAt"
+                            [hourStep]="hourStep"
+                            [minuteStep]="minuteStep"
+                          >
+                          </ngb-timepicker>
+                        </td>
+                        <td>
+                          <ngb-timepicker
+                            [ngModel]="businessHoursData.mon_endAt"
+                            name="mon_endAt"
+                            [hourStep]="hourStep"
+                            [minuteStep]="minuteStep"
+                          >
+                          </ngb-timepicker>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-center">
+                          <bSwitch
+                            [ngModel]="businessHoursData.tue_enabled"
+                            name="tue_enabled"
+                            [switch-on-color]="'primary'"
+                            [switch-off-color]="'primary'"
+                          >
+                          </bSwitch>
+                        </td>
+                        <td>火曜</td>
+                        <td>
+                          <ngb-timepicker
+                            [ngModel]="businessHoursData.tue_startAt"
+                            name="tue_startAt"
+                            [hourStep]="hourStep"
+                            [minuteStep]="minuteStep"
+                          >
+                          </ngb-timepicker>
+                        </td>
+                        <td>
+                          <ngb-timepicker
+                            [ngModel]="businessHoursData.tue_endAt"
+                            name="tue_endAt"
+                            [hourStep]="hourStep"
+                            [minuteStep]="minuteStep"
+                          >
+                          </ngb-timepicker>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-center">
+                          <bSwitch
+                            [ngModel]="businessHoursData.wed_enabled"
+                            name="wed_enabled"
+                            [switch-on-color]="'primary'"
+                            [switch-off-color]="'primary'"
+                          >
+                          </bSwitch>
+                        </td>
+                        <td>水曜</td>
+                        <td>
+                          <ngb-timepicker
+                            [ngModel]="businessHoursData.wed_startAt"
+                            name="wed_startAt"
+                            [hourStep]="hourStep"
+                            [minuteStep]="minuteStep"
+                          >
+                          </ngb-timepicker>
+                        </td>
+                        <td>
+                          <ngb-timepicker
+                            [ngModel]="businessHoursData.wed_endAt"
+                            name="wed_endAt"
+                            [hourStep]="hourStep"
+                            [minuteStep]="minuteStep"
+                          >
+                          </ngb-timepicker>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-center">
+                          <bSwitch
+                            [ngModel]="businessHoursData.thu_enabled"
+                            name="thu_enabled"
+                            [switch-on-color]="'primary'"
+                            [switch-off-color]="'primary'"
+                          >
+                          </bSwitch>
+                        </td>
+                        <td>木曜</td>
+                        <td>
+                          <ngb-timepicker
+                            [ngModel]="businessHoursData.thu_startAt"
+                            name="thu_startAt"
+                            [hourStep]="hourStep"
+                            [minuteStep]="minuteStep"
+                          >
+                          </ngb-timepicker>
+                        </td>
+                        <td>
+                          <ngb-timepicker
+                            [ngModel]="businessHoursData.thu_endAt"
+                            name="thu_endAt"
+                            [hourStep]="hourStep"
+                            [minuteStep]="minuteStep"
+                          >
+                          </ngb-timepicker>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-center">
+                          <bSwitch
+                            [ngModel]="businessHoursData.fri_enabled"
+                            name="fri_enabled"
+                            [switch-on-color]="'primary'"
+                            [switch-off-color]="'primary'"
+                          >
+                          </bSwitch>
+                        </td>
+                        <td>金曜</td>
+                        <td>
+                          <ngb-timepicker
+                            [ngModel]="businessHoursData.fri_startAt"
+                            name="fri_startAt"
+                            [hourStep]="hourStep"
+                            [minuteStep]="minuteStep"
+                          >
+                          </ngb-timepicker>
+                        </td>
+                        <td>
+                          <ngb-timepicker
+                            [ngModel]="businessHoursData.fri_endAt"
+                            name="fri_endAt"
+                            [hourStep]="hourStep"
+                            [minuteStep]="minuteStep"
+                          >
+                          </ngb-timepicker>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-center">
+                          <bSwitch
+                            [ngModel]="businessHoursData.sat_enabled"
+                            name="sat_enabled"
+                            [switch-on-color]="'primary'"
+                            [switch-off-color]="'primary'"
+                          >
+                          </bSwitch>
+                        </td>
+                        <td>土曜</td>
+                        <td>
+                          <ngb-timepicker
+                            [ngModel]="businessHoursData.sat_startAt"
+                            name="sat_startAt"
+                            [hourStep]="hourStep"
+                            [minuteStep]="minuteStep"
+                          >
+                          </ngb-timepicker>
+                        </td>
+                        <td>
+                          <ngb-timepicker
+                            [ngModel]="businessHoursData.sat_endAt"
+                            name="sat_endAt"
+                            [hourStep]="hourStep"
+                            [minuteStep]="minuteStep"
+                          >
+                          </ngb-timepicker>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <br />
+                <div class="text-center">
+                  <button
+                    [disabled]="businessHoursForm.pristine"
+                    type="submit"
+                    class="btn btn-lg btn-primary"
+                  >
+                    更新する
+                  </button>
+                </div>
+              </form>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="休日設定">
+            <ng-template ngbTabContent>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="space-top"></div>
+                  <h5 class="description text-center">
+                    受付ブロック日を予め設定できます.
+                  </h5>
+                  <h5 class="description text-center">
+                    長押しドラッグ選択で複数日をまとめてブロックできます.
+                  </h5>
+                  <div class="space-top"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-10 ml-auto mr-auto">
+                  <full-calendar
+                    #calendar
+                    defaultView="dayGridMonth"
+                    [plugins]="calendarPlugins"
+                    [longPressDelay]="300"
+                    [selectable]="true"
+                    [events]="calendarEvents"
+                    [businessHours]="calendarBusinessHours"
+                    (dateClick)="handleDateClick($event)"
+                    (select)="handleDragSelect($event)"
+                    (eventClick)="handleEventClick($event)"
+                  ></full-calendar>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset> -->
+      </div>
+    </div>
+  </div>
+</div>

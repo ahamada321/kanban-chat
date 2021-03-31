@@ -1,0 +1,145 @@
+.division {
+    float: none;
+    margin: 0 auto;
+    overflow: hidden;
+    margin: 20px 0;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    // color: $font-color;
+    .line {
+        border-top: 1px solid rgba(0, 0, 0, 0.2);
+        position: absolute;
+        top: 10px;
+        width: 40%;
+        &.l{
+            left: 0;
+        }
+        &.r{
+            right: 0;
+        }
+    }
+}
+
+
+
+
+.title-brand{
+    max-width: 730px;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+    color: #FFFFFF;
+    display: block;
+
+    .type{
+        position: absolute;
+        font-size: 20px;
+        background: #132026;
+        padding: 6px 10px;
+        border-radius: 4px;
+        top: 0;
+        font-weight: 600;
+        margin-top: 10px;
+        right: -15px;
+    }
+}
+
+.presentation-title{
+    font-size: 8em;
+    font-weight: 700;
+    margin: 0;
+    color: #FFFFFF;
+    // background: #fbf8ec;
+    background: -moz-linear-gradient(to bottom, #FFFFFF 35%, #4e6773 100%);
+    background: -webkit-linear-gradient(to bottom, #FFFFFF 35%,#4e6773 100%);
+    background: -ms-linear-gradient(to bottom, #FFFFFF 35%,#4e6773 100%);
+    background: -o-linear-gradient(to bottom, #FFFFFF 35%,#4e6773 100%);
+    background: linear-gradient(to bottom, #FFFFFF 35%,#4e6773 100%);
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.presentation-subtitle{
+    font-size: 1.7em;
+    color: #FFFFFF;
+}
+
+.category-absolute{
+    z-index: 3;
+}
+
+.fog-low{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin-left: -35%;
+    margin-bottom: -50px;
+    width: 110%;
+    opacity: .85;
+
+    img{
+        width: 100%;
+    }
+
+    &.right{
+        margin-left: 30%;
+        opacity: 1;
+    }
+}
+
+.anytime-pt-logo{
+    max-width: 450px;
+    margin: 40px auto 45px;
+
+    img{
+        width: 100%;
+    }
+}
+.page-header{
+    .content-center{
+        //margin-top: 85px;
+    }
+}
+.moving-clouds{
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+    left: 0;
+    width: 250.625em;
+    height: 43.75em;
+    -webkit-animation: cloudLoop 80s linear infinite;
+    animation: cloudLoop 80s linear infinite;
+}
+
+@keyframes cloudLoop{   0%{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}
+                        100%{-webkit-transform:translate3d(-50%,0,0);
+                        transform:translate3d(-50%,0,0)}
+                    }
+.following{
+    img{
+        max-width: 70px;
+    }
+}
+
+.ie-background{
+    .page-header{
+        .content-center{
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            -ms-transform: translate(-50%, -75%);
+            .title-brand{
+                .presentation-title{
+                    background: none;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 500px){
+    .presentation-title{
+        font-size: 5em;
+    }
+}

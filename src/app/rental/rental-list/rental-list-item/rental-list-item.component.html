@@ -1,0 +1,50 @@
+<div class="card">
+  <!-- <a *ngIf="auth.isAuthenticated()" routerLink="{{ rental._id }}">
+    <div class="card-image">
+      <img class="img" src="{{ rental.image }}" />
+    </div>
+    <div class="card-body">
+      <h6 class="card-category">{{ rental.selectedCategory }}</h6>
+      <h5 class="card-title">{{ rental.rentalname }}</h5>
+      <div class="card-description">{{ rental.cardDescription }}</div>
+      <br />
+    </div>
+  </a> -->
+
+  <!-- <a *ngIf="!auth.isAuthenticated()" (click)="modalLoginOpen()">
+    <div class="card-image">
+      <img class="img" src="{{ rental.image }}" />
+    </div>
+    <div class="card-body">
+      <h6 class="card-category">{{ rental.selectedCategory }}</h6>
+      <h5 class="card-title">{{ rental.rentalname }}</h5>
+      <div class="card-description">{{ rental.cardDescription }}</div>
+      <br />
+    </div>
+  </a> -->
+
+  <a routerLink="/e-learning">
+    <div class="card-body text-center">
+      <div class="clearfix"></div>
+      <div class="author">
+        <a href="javascript:void(0)">
+          <img
+            src="{{ rental.image }}"
+            alt="..."
+            class="avatar-big img-raised border-gray"
+          />
+        </a>
+        <h5 class="card-title">{{ rental.rentalname }}</h5>
+        <!-- <p class="category">
+          <a href="javascript:void(0)" class="text-danger">@kacibaum</a>
+        </p> -->
+        <h6 class="text-muted">2021/4/5, 11:57 AM</h6>
+        <h6 class="text-muted">LV.1</h6>
+      </div>
+      <p class="card-description">
+        {{ rental.description }}
+      </p>
+    </div>
+    <div class="card-footer"></div>
+  </a>
+</div>

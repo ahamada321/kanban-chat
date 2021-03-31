@@ -1,0 +1,386 @@
+<div class="wrapper">
+  <div
+    class="page-header page-header-small"
+    data-parallax="true"
+    [ngStyle]="{ 'background-image': 'url(' + newRental.image + ')' }"
+  >
+    <div class="filter"></div>
+  </div>
+
+  <div class="main">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 ml-auto mr-auto">
+          <div class="space-top"></div>
+          <app-image-upload-myver
+            (imageUploaded)="imageChange($event)"
+            [isMust]="true"
+            placement="top"
+            ngbTooltip="顔が写っているものを設定"
+          ></app-image-upload-myver>
+          <form #rentalForm="ngForm">
+            <!--<form [formGroup]="myGroup" action="" method="">-->
+            <div class="form-group">
+              <div class="form-group">
+                <h6>カテゴリ <span class="icon-danger">*</span></h6>
+                <select
+                  class="custom-select"
+                  [(ngModel)]="newRental.selectedCategory"
+                  name="selectedCategory"
+                  required
+                >
+                  <option [value]="undefined" disabled>カテゴリを選択</option>
+                  <option
+                    *ngFor="let dropdownCategoryList of dropdownCategoryLists"
+                    [value]="dropdownCategoryList"
+                  >
+                    {{ dropdownCategoryList }}
+                  </option>
+                </select>
+              </div>
+
+              <ng-container *ngIf="auth.getUserRole() === 'Owner'">
+                <h6>
+                  商品名（個人名を推薦） <span class="icon-danger">*</span>
+                </h6>
+                <input
+                  [(ngModel)]="newRental.rentalname"
+                  name="rentalname"
+                  type="text"
+                  class="form-control"
+                  placeholder="鈴木太郎"
+                  maxlength="20"
+                  required
+                />
+                <h5>
+                  <small
+                    ><span id="textarea-limited-message" class="pull-right">
+                      <div *ngIf="!newRental.rentalname">残文字数 20</div>
+                      <div *ngIf="newRental.rentalname">
+                        残文字数 {{ 20 - newRental.rentalname.length }}
+                      </div>
+                    </span></small
+                  >
+                </h5>
+              </ng-container>
+              <ng-container *ngIf="auth.getUserRole() === 'Trainer'">
+                <h6>
+                  商品名（ユーザー名と連動します）
+                  <span class="icon-danger">*</span>
+                </h6>
+                <input
+                  [(ngModel)]="newRental.rentalname"
+                  name="rentalname"
+                  type="text"
+                  class="form-control"
+                  placeholder="商品名"
+                  maxlength="20"
+                  disabled
+                />
+              </ng-container>
+            </div>
+
+            <div class="form-group">
+              <h6>自己紹介文 <span class="icon-danger">*</span></h6>
+              <textarea
+                [(ngModel)]="newRental.description"
+                name="description"
+                class="form-control textarea-limited"
+                placeholder="自己紹介文を入力できます。具代的に書くことで初見の人があなたに興味を持ち、メッセージを送りやすくなります。"
+                rows="7"
+                maxlength="1500"
+                required
+              ></textarea>
+              <h5>
+                <small
+                  ><span id="textarea-limited-message" class="pull-right">
+                    <div *ngIf="!newRental.description">残文字数 1500</div>
+                    <div *ngIf="newRental.description">
+                      残文字数 {{ 1500 - newRental.description.length }}
+                    </div>
+                  </span></small
+                >
+              </h5>
+            </div>
+
+            <div class="form-group">
+              <h6>提供するサービスタイトル</h6>
+              <input
+                [(ngModel)]="newRental.course1Title"
+                name="course1Title"
+                type="text"
+                class="form-control"
+                placeholder="提供するサービスタイトルを設定"
+                maxlength="150"
+              />
+              <h5>
+                <small
+                  ><span id="textarea-limited-message" class="pull-right">
+                    <div *ngIf="!newRental.course1Title">残文字数 150</div>
+                    <div *ngIf="newRental.course1Title">
+                      残文字数 {{ 150 - newRental.course1Title.length }}
+                    </div>
+                  </span></small
+                >
+              </h5>
+            </div>
+
+            <div class="form-group">
+              <h6>提供するサービス説明</h6>
+              <textarea
+                class="form-control textarea-limited"
+                placeholder="提供するサービス内容を出来る限り簡潔に魅力的に書きましょう"
+                [(ngModel)]="newRental.course1Description"
+                name="course1Description"
+                rows="4"
+                maxlength="150"
+              ></textarea>
+              <h5>
+                <small
+                  ><span id="textarea-limited-message" class="pull-right">
+                    <div *ngIf="!newRental.course1Description">
+                      残文字数 150
+                    </div>
+                    <div *ngIf="newRental.course1Description">
+                      残文字数 {{ 150 - newRental.course1Description.length }}
+                    </div>
+                  </span></small
+                >
+              </h5>
+            </div>
+
+            <div class="form-group">
+              <h6>求めていること <span class="icon-danger">*</span></h6>
+              <input
+                [(ngModel)]="newRental.memo"
+                name="memo"
+                type="text"
+                class="form-control"
+                placeholder="従業員募集など"
+                maxlength="100"
+                required
+              />
+              <h5>
+                <small
+                  ><span id="textarea-limited-message" class="pull-right">
+                    <div *ngIf="!newRental.memo">残文字数 100</div>
+                    <div *ngIf="newRental.memo">
+                      残文字数 {{ 100 - newRental.memo.length }}
+                    </div>
+                  </span></small
+                >
+              </h5>
+            </div>
+
+            <!-- <div class="form-group">
+              <h6>提供コース２タイトル（任意）</h6>
+              <textarea
+                class="form-control textarea-limited"
+                placeholder="提供するサービス内容を出来る限り簡潔に魅力的に書きましょう"
+                [(ngModel)]="newRental.course2Title"
+                name="course2Title"
+                rows="3"
+                maxlength="150"
+              ></textarea>
+              <h5>
+                <small
+                  ><span id="textarea-limited-message" class="pull-right">
+                    <div *ngIf="!newRental.course2Title">残文字数 150</div>
+                    <div *ngIf="newRental.course2Title">
+                      残文字数 {{ 150 - newRental.course2Title.length }}
+                    </div>
+                  </span></small
+                >
+              </h5>
+            </div>
+
+            <div class="form-group">
+              <h6>提供コース２説明文（任意）</h6>
+              <textarea
+                class="form-control textarea-limited"
+                placeholder="提供するサービス内容を出来る限り簡潔に魅力的に書きましょう"
+                [(ngModel)]="newRental.course2Description"
+                name="course2Description"
+                rows="3"
+                maxlength="150"
+              ></textarea>
+              <h5>
+                <small
+                  ><span id="textarea-limited-message" class="pull-right">
+                    <div *ngIf="!newRental.course2Description">
+                      残文字数 150
+                    </div>
+                    <div *ngIf="newRental.course2Description">
+                      残文字数 {{ 150 - newRental.course2Description.length }}
+                    </div>
+                  </span></small
+                >
+              </h5>
+            </div> -->
+
+            <div class="form-group">
+              <h6>活動都道府県 <span class="icon-danger">*</span></h6>
+              <angular2-multiselect
+                [data]="dropdownPrefectureList"
+                [settings]="dropdownPrefectureSettings"
+                [(ngModel)]="newRental.province"
+                name="province"
+                required
+              ></angular2-multiselect>
+            </div>
+
+            <div class="form-group">
+              <h6>市区町村 <span class="icon-danger">*</span></h6>
+              <input
+                [(ngModel)]="newRental.address1"
+                name="address1"
+                type="text"
+                class="form-control"
+                placeholder="新宿区新宿"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <h6>番地・ビル名等（任意）</h6>
+              <input
+                [(ngModel)]="newRental.address2"
+                name="address2"
+                type="text"
+                class="form-control"
+                placeholder="1-1-1 ○○ビル3F"
+              />
+            </div>
+
+            <!-- <div class="form-group">
+              <h6>活動最寄駅 <span class="icon-danger">*</span></h6>
+              <div class="input-group border-input">
+                <input
+                  type="text"
+                  placeholder="新宿"
+                  class="form-control border-input"
+                  [(ngModel)]="newRental.nearStation"
+                  name="nearStation"
+                  required
+                />
+                <div class="input-group-append">
+                  <span class="input-group-text">駅</span>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="form-group">
+              <h6>Instagram ID <span class="icon-danger">*</span></h6>
+              <div
+                class="input-group"
+                [ngClass]="{ 'input-group-focus': focus === true }"
+              >
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><i class="fa fa-instagram"></i
+                  ></span>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="newRental.instagram"
+                  name="instagram"
+                  placeholder="Instagram ID（@は不要）"
+                  (focus)="focus = true"
+                  (blur)="focus = false"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <h6>Twitter ID（任意）</h6>
+              <div
+                class="input-group"
+                [ngClass]="{ 'input-group-focus': focus2 === true }"
+              >
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><i class="fa fa-twitter"></i
+                  ></span>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="newRental.twitter"
+                  name="twitter"
+                  placeholder="Twitter ID（@は不要）"
+                  (focus)="focus2 = true"
+                  (blur)="focus2 = false"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <h6>Youtube URL（任意）</h6>
+              <input
+                type="text"
+                class="form-control border-input"
+                placeholder="Youtube URLが入力できます"
+                [(ngModel)]="newRental.youtube"
+                name="youtube"
+              />
+            </div>
+            <div class="form-group">
+              <h6>Facebook URL（任意）</h6>
+              <input
+                type="text"
+                class="form-control border-input"
+                placeholder="FacebookURLが入力できます"
+                [(ngModel)]="newRental.facebook"
+                name="facebook"
+              />
+            </div>
+
+            <!-- <div class="form-group">
+              <h6>
+                提供サービス時給（1万円以上推薦）
+                <span class="icon-danger">*</span>
+              </h6>
+              <div class="input-group border-input">
+                <input
+                  type="number"
+                  placeholder="時給を任意に設定できます"
+                  class="form-control border-input"
+                  [(ngModel)]="newRental.hourlyPrice"
+                  name="hourlyPrice"
+                  required
+                />
+                <div class="input-group-append">
+                  <span class="input-group-text">円</span>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="row buttons-row">
+              <div class="col-md-6">
+                <button
+                  (click)="createUnpublishedRental()"
+                  class="btn btn-outline-default btn-block btn-round"
+                >
+                  下書き保存
+                </button>
+              </div>
+              <div class="col-md-6">
+                <button
+                  [disabled]="!(rentalForm.form.valid && !isClicked)"
+                  (click)="createRental()"
+                  class="btn btn-primary btn-block btn-round"
+                >
+                  公開
+                </button>
+              </div>
+            </div>
+          </form>
+          <div class="space-top"></div>
+          <div *ngIf="errors && errors.length > 0" class="alert alert-danger">
+            <p *ngFor="let error of errors">{{ error.detail }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,231 @@
+<div class="wrapper">
+  <div
+    class="page-header"
+    style="background-image: url('./assets/img/lp/back-image.jpg')"
+  >
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <!-- <div class="title-brand">
+          <div class="logo">
+            <img src="assets/img/logo/logo-w-aeru-wh.svg" alt="..." />
+          </div>
+        </div> -->
+        <div class="space-50"></div>
+        <h2 class="presentation-subtitle text-center">
+          \ 日々の悩みを解決しよう /
+        </h2>
+
+        <div class="space-top"></div>
+        <div class="row">
+          <div class="col-md-8 ml-auto mr-auto text-center">
+            <a (click)="openModal(Notice)" class="btn btn-primary btn-round"
+              >Coop withとは？
+            </a>
+          </div>
+        </div>
+        <div class="space-top"></div>
+        <div class="row">
+          <div class="col-6 col-sm-5 ml-auto">
+            <div
+              class="card"
+              data-background="image"
+              style="
+                background-image: url('assets/img/sections/rawpixel-com.jpg');
+              "
+            >
+              <div class="card-body">
+                <h3 class="card-title">全て</h3>
+                <p class="card-description">全てを一覧できます</p>
+                <div class="card-footer">
+                  <a
+                    [routerLink]="['/rentals']"
+                    class="btn btn-primary btn-move-right btn-round"
+                    >見に行く
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-sm-5 mr-auto">
+            <div
+              class="card"
+              data-background="image"
+              style="
+                background-image: url('assets/img/sections/rawpixel-com.jpg');
+              "
+            >
+              <div class="card-body">
+                <h3 class="card-title">一人暮らし</h3>
+                <p class="card-description">一人暮らしに関する悩み</p>
+                <div class="card-footer">
+                  <a
+                    [routerLink]="['/rentals']"
+                    [queryParams]="{
+                      selectedCategory: ['営業']
+                    }"
+                    class="btn btn-warning btn-move-right btn-round"
+                    >見に行く
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6 col-sm-5 ml-auto">
+            <div
+              class="card"
+              data-background="image"
+              style="
+                background-image: url('assets/img/sections/rawpixel-com.jpg');
+              "
+            >
+              <div class="card-body">
+                <h3 class="card-title">就活</h3>
+                <p class="card-description">就活に関する悩み</p>
+                <div class="card-footer">
+                  <a
+                    [routerLink]="['/rentals']"
+                    [queryParams]="{
+                      selectedCategory: ['経営者']
+                    }"
+                    class="btn btn-info btn-move-right btn-round"
+                    >見に行く
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-sm-5 mr-auto">
+            <div
+              class="card"
+              data-background="image"
+              style="
+                background-image: url('assets/img/sections/rawpixel-com.jpg');
+              "
+            >
+              <div class="card-body">
+                <h3 class="card-title">転職活動</h3>
+                <p class="card-description">転職活動に関する悩み</p>
+                <div class="card-footer">
+                  <a
+                    [routerLink]="['/rentals']"
+                    [queryParams]="{
+                      selectedCategory: ['個人事業主']
+                    }"
+                    class="btn btn-success btn-move-right btn-round"
+                    >見に行く
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6 col-sm-5 ml-auto">
+            <div
+              class="card"
+              data-background="image"
+              style="
+                background-image: url('assets/img/sections/rawpixel-com.jpg');
+              "
+            >
+              <div class="card-body">
+                <h3 class="card-title">OB/OG相談</h3>
+                <p class="card-description">同じ大学のOB・OGに相談</p>
+                <div class="card-footer">
+                  <a
+                    [routerLink]="['/rentals']"
+                    [queryParams]="{
+                      selectedCategory: ['社会人']
+                    }"
+                    class="btn btn-danger btn-move-right btn-round"
+                    >見に行く
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-sm-5 mr-auto">
+            <div
+              class="card"
+              data-background="image"
+              style="
+                background-image: url('assets/img/sections/rawpixel-com.jpg');
+              "
+            >
+              <div class="card-body">
+                <h3 class="card-title">Q&A</h3>
+                <p class="card-description">新社会人生活サポート情報</p>
+                <div class="card-footer">
+                  <a
+                    [routerLink]="['/rentals']"
+                    [queryParams]="{
+                      selectedCategory: ['学生']
+                    }"
+                    class="btn btn-default btn-move-right btn-round"
+                    >見に行く
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-top"></div>
+        <div class="row">
+          <div class="col-md-8 ml-auto mr-auto text-center">
+            <a
+              [routerLink]="['/register']"
+              class="btn btn-primary btn-round btn-lg"
+            >
+              新規会員登録する
+            </a>
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-md-8 ml-auto mr-auto text-center">
+            <button
+              (click)="modalLoginOpen()"
+              class="btn btn-primary btn-link btn-lg"
+            >
+              ログインはこちら
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #Notice let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <button type="button" class="close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="iframe-container">
+      <iframe
+        src="https://www.youtube.com/embed/z8Kt1gXL_2M"
+        frameborder="0"
+        allowfullscreen
+        height="250"
+      ></iframe>
+    </div>
+    <h3 class="modal-title text-center">\ Coop withとは？ /</h3>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-primary btn-link"
+      (click)="c('Close click')"
+    >
+      閉じる
+    </button>
+  </div>
+</ng-template>

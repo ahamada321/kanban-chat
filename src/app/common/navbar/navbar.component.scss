@@ -1,0 +1,22 @@
+.navbar {
+  .navbar-brand {
+    background: url("/assets/img/logo/logo-w-aeru.svg") 0 0 no-repeat;
+    margin-left: 10px;
+    margin-top: 7px;
+    width: 150px;
+    height: auto;
+  }
+  &.navbar-transparent {
+    .navbar-brand {
+      background: url("/assets/img/logo/logo-w-aeru-wh.svg") 0 0 no-repeat !important;
+      margin-left: 10px;
+      margin-top: 7px;
+      width: 150px;
+      height: auto;
+    }
+  }
+}
+
+.clickable {
+  cursor: pointer;
+}

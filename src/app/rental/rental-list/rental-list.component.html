@@ -1,0 +1,112 @@
+<div
+  class="page-header page-header-small"
+  data-parallax="true"
+  style="background-image: url('./assets/img/lp/back-image.jpg')"
+>
+  <div class="filter"></div>
+  <div class="content-center">
+    <div class="container">
+      <div class="space-50"></div>
+      <h1 class="title">Coop with</h1>
+      <!-- <h3 class="description">\ 起業・経営者 マッチングアプリ /</h3> -->
+      <h3 class="description">\ 若者同士の互助コミュニティ/</h3>
+      <div class="space-top"></div>
+      <app-searchbar (event)="filterByRentalName($event)"></app-searchbar>
+    </div>
+  </div>
+</div>
+<div class="main">
+  <div class="section text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 ml-auto mr-auto text-center">
+          <h2 class="title">おすすめ投稿</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-10 ml-auto mr-auto">
+          <div class="card card-raised page-carousel">
+            <ngb-carousel>
+              <ng-container *ngFor="let rental of rentals">
+                <ng-template ngbSlide>
+                  <div class="card card-testimonial card-plain">
+                    <div class="card-avatar">
+                      <img class="img" src="{{ rental.image }}" />
+                    </div>
+                    <div class="space-70"></div>
+                    <div class="card-body">
+                      <h5 class="card-title">{{ rental.rentalname }}</h5>
+                      <h6 class="text-muted">2021/4/5, 11:57 AM</h6>
+                      <h6 class="text-muted">LV.1</h6>
+
+                      <h5 class="card-description">
+                        {{ rental.description }}
+                      </h5>
+                      <div class="card-footer"></div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ng-container>
+            </ngb-carousel>
+          </div>
+        </div>
+      </div>
+      <div class="space-top"></div>
+      <button type="button" class="btn btn-primary btn-round btn-lg">
+        <i class="nc-icon nc-send"></i> 自分の悩みを投稿する
+      </button>
+      <div class="space-top"></div>
+      <div class="row">
+        <div class="col-md-8 ml-auto mr-auto text-center">
+          <h2 class="title">新着投稿</h2>
+        </div>
+      </div>
+      <div class="row">
+        <ng-container *ngFor="let rental of rentals">
+          <div class="col-sm-6 col-lg-3">
+            <app-rental-list-item [rental]="rental"></app-rental-list-item>
+          </div>
+        </ng-container>
+      </div>
+      <div class="space-top"></div>
+      <div
+        class="pagination-area pagination-primary justify-content-center text-center"
+      >
+        <ngb-pagination
+          [collectionSize]="pageCollectionSize"
+          [(page)]="pageIndex"
+          [pageSize]="pageSize"
+          [maxSize]="5"
+          [boundaryLinks]="true"
+          aria-label="Default pagination"
+          (pageChange)="pageChange()"
+        ></ngb-pagination>
+      </div>
+    </div>
+  </div>
+
+  <!--     *********    CALL TO ACTION    *********      -->
+  <ng-container
+    *ngIf="!auth.isAuthenticated() || auth.getUserRole() === 'User'"
+  >
+    <div class="separator"></div>
+    <div class="subscribe-line">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-9 col-sm-8">
+            <h3>あなたも相談しませんか？</h3>
+            <h5>後輩の相談に乗ってあげることも可能です。</h5>
+          </div>
+          <div class="col-md-3 col-sm-4">
+            <br />
+            <a
+              [routerLink]="['/register']"
+              class="btn btn-round btn-lg btn-block btn-primary"
+              >メンバー登録する</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,12 @@
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+  background-color: #fff;
+  // color: #66615B;
+  cursor: inherit;
+}
+
+.modal-body {
+  padding: 20px 20px;
+  color: #000;
+}

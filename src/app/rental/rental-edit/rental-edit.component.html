@@ -1,0 +1,541 @@
+<div class="wrapper" *ngIf="rental">
+  <div
+    class="page-header page-header-small"
+    data-parallax="true"
+    [ngStyle]="{ 'background-image': 'url(' + rental.image + ')' }"
+  >
+    <div class="filter"></div>
+  </div>
+
+  <div class="main">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 ml-auto mr-auto">
+          <div class="space-top"></div>
+          <app-image-upload-myver
+            [isMust]="true"
+            (imageUploaded)="rental.image = $event; isTouched = true"
+            placement="top"
+            ngbTooltip="顔が写っているものを設定"
+          ></app-image-upload-myver>
+          <form #rentalForm="ngForm">
+            <!--<form [formGroup]="myGroup" action="" method="">-->
+            <div class="form-group">
+              <h6>カテゴリ <span class="icon-danger">*</span></h6>
+              <select
+                class="custom-select"
+                [(ngModel)]="rental.selectedCategory"
+                name="selectedCategory"
+                required
+              >
+                <option [value]="undefined" disabled>カテゴリを選択</option>
+                <option
+                  *ngFor="let dropdownCategoryList of dropdownCategoryLists"
+                  [value]="dropdownCategoryList"
+                >
+                  {{ dropdownCategoryList }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <ng-container *ngIf="auth.getUserRole() === 'Owner'">
+                <h6>
+                  商品名（個人名を推薦） <span class="icon-danger">*</span>
+                </h6>
+                <input
+                  [(ngModel)]="rental.rentalname"
+                  name="rentalname"
+                  type="text"
+                  class="form-control"
+                  placeholder="鈴木太郎"
+                  maxlength="20"
+                  required
+                />
+                <h5>
+                  <small
+                    ><span id="textarea-limited-message" class="pull-right">
+                      <div *ngIf="!rental.rentalname">残文字数 20</div>
+                      <div *ngIf="rental.rentalname">
+                        残文字数 {{ 20 - rental.rentalname.length }}
+                      </div>
+                    </span></small
+                  >
+                </h5>
+              </ng-container>
+              <ng-container *ngIf="auth.getUserRole() === 'Trainer'">
+                <h6>
+                  商品名（ユーザー名と連動します）
+                  <span class="icon-danger">*</span>
+                </h6>
+                <input
+                  [(ngModel)]="rental.rentalname"
+                  name="rentalname"
+                  type="text"
+                  class="form-control"
+                  placeholder="商品名"
+                  maxlength="20"
+                  disabled
+                />
+              </ng-container>
+            </div>
+
+            <div class="form-group">
+              <h6>ひとこと</h6>
+              <input
+                [(ngModel)]="rental.cardDescription"
+                name="cardDescription"
+                type="text"
+                class="form-control"
+                placeholder="商品カードのコピー文が入力できます。"
+                maxlength="12"
+              />
+              <h5>
+                <small
+                  ><span id="textarea-limited-message" class="pull-right">
+                    <div *ngIf="!rental.cardDescription">残文字数 12</div>
+                    <div *ngIf="rental.cardDescription">
+                      残文字数 {{ 12 - rental.cardDescription.length }}
+                    </div>
+                  </span></small
+                >
+              </h5>
+            </div>
+
+            <!-- <div class="form-group">
+              <h6>自己紹介動画（Youtube共有リンク）</h6>
+              <div class="input-group border-input">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">https://youtu.be/</span>
+                </div>
+                <input
+                  type="text"
+                  placeholder="3qwhFjwznt0"
+                  class="form-control border-input"
+                  [(ngModel)]="rental.videoLink"
+                  name="videoLink"
+                />
+              </div>
+            </div> -->
+
+            <div class="form-group">
+              <h6>自己紹介文 <span class="icon-danger">*</span></h6>
+              <textarea
+                [(ngModel)]="rental.description"
+                name="description"
+                class="form-control textarea-limited"
+                placeholder="自己紹介文を入力できます。具代的に書くことで初見の人があなたに興味を持ち、メッセージを送りやすくなります。"
+                rows="7"
+                maxlength="1500"
+                required
+              ></textarea>
+              <h5>
+                <small
+                  ><span id="textarea-limited-message" class="pull-right">
+                    <div *ngIf="!rental.description">残文字数 1500</div>
+                    <div *ngIf="rental.description">
+                      残文字数 {{ 1500 - rental.description.length }}
+                    </div>
+                  </span></small
+                >
+              </h5>
+            </div>
+
+            <div class="form-group">
+              <h6>
+                提供するサービスタイトル <span class="icon-danger">*</span>
+              </h6>
+              <input
+                [(ngModel)]="rental.course1Title"
+                name="course1Title"
+                type="text"
+                class="form-control"
+                placeholder="提供するサービスタイトルを設定"
+                maxlength="150"
+                required
+              />
+              <h5>
+                <small
+                  ><span id="textarea-limited-message" class="pull-right">
+                    <div *ngIf="!rental.course1Title">残文字数 150</div>
+                    <div *ngIf="rental.course1Title">
+                      残文字数 {{ 150 - rental.course1Title.length }}
+                    </div>
+                  </span></small
+                >
+              </h5>
+            </div>
+
+            <div class="form-group">
+              <h6>提供するサービス説明 <span class="icon-danger">*</span></h6>
+              <textarea
+                class="form-control textarea-limited"
+                placeholder="提供するサービス内容を出来る限り簡潔に魅力的に書きましょう"
+                [(ngModel)]="rental.course1Description"
+                name="course1Description"
+                rows="4"
+                maxlength="150"
+                required
+              ></textarea>
+              <h5>
+                <small
+                  ><span id="textarea-limited-message" class="pull-right">
+                    <div *ngIf="!rental.course1Description">残文字数 150</div>
+                    <div *ngIf="rental.course1Description">
+                      残文字数 {{ 150 - rental.course1Description.length }}
+                    </div>
+                  </span></small
+                >
+              </h5>
+            </div>
+
+            <!-- <div class="form-group">
+              <h6>コース１画像を選択</h6>
+              <div class="row">
+                <div class="col-md-10 ml-auto mr-auto">
+                  <app-image-upload-myver
+                    [inputLabel]="'コース１画像を選択'"
+                    [inputImage]="rental.course1Img"
+                    (imageUploaded)="
+                      rental.course1Img = $event; isTouched = true
+                    "
+                  >
+                  </app-image-upload-myver>
+                </div>
+              </div>
+            </div> -->
+
+            <!-- <div class="form-group">
+              <h6>提供コース２タイトル（任意）</h6>
+              <textarea
+                class="form-control textarea-limited"
+                placeholder="提供するコース２タイトルを決めましょう"
+                [(ngModel)]="rental.course2Title"
+                name="course2Title"
+                rows="3"
+                maxlength="150"
+              ></textarea>
+              <h5>
+                <small
+                  ><span id="textarea-limited-message" class="pull-right">
+                    <div *ngIf="!rental.course2Title">残文字数 150</div>
+                    <div *ngIf="rental.course2Title">
+                      残文字数 {{ 150 - rental.course2Title.length }}
+                    </div>
+                  </span></small
+                >
+              </h5>
+            </div> -->
+
+            <!-- <div class="form-group">
+              <h6>提供コース２説明文（任意）</h6>
+              <textarea
+                class="form-control textarea-limited"
+                placeholder="提供するサービス内容を出来る限り簡潔に魅力的に書きましょう"
+                [(ngModel)]="rental.course2Description"
+                name="course2Description"
+                rows="3"
+                maxlength="150"
+              ></textarea>
+              <h5>
+                <small
+                  ><span id="textarea-limited-message" class="pull-right">
+                    <div *ngIf="!rental.course2Description">残文字数 150</div>
+                    <div *ngIf="rental.course2Description">
+                      残文字数 {{ 150 - rental.course2Description.length }}
+                    </div>
+                  </span></small
+                >
+              </h5>
+            </div>
+
+            <div class="form-group">
+              <h6>コース２画像を選択</h6>
+              <div class="row">
+                <div class="col-md-10 ml-auto mr-auto">
+                  <app-image-upload-myver
+                    [inputLabel]="'コース２画像を選択'"
+                    [inputImage]="rental.course2Img"
+                    (imageUploaded)="
+                      rental.course2Img = $event; isTouched = true
+                    "
+                  >
+                  </app-image-upload-myver>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="form-group">
+              <h6>求めていること <span class="icon-danger">*</span></h6>
+              <input
+                [(ngModel)]="rental.memo"
+                name="memo"
+                type="text"
+                class="form-control"
+                placeholder="従業員募集など"
+                maxlength="100"
+                required
+              />
+              <h5>
+                <small
+                  ><span id="textarea-limited-message" class="pull-right">
+                    <div *ngIf="!rental.memo">残文字数 100</div>
+                    <div *ngIf="rental.memo">
+                      残文字数 {{ 100 - rental.memo.length }}
+                    </div>
+                  </span></small
+                >
+              </h5>
+            </div>
+
+            <div class="form-group">
+              <h6>活動都道府県 <span class="icon-danger">*</span></h6>
+              <angular2-multiselect
+                [(ngModel)]="rental.province"
+                [data]="dropdownPrefectureList"
+                [settings]="dropdownPrefectureSettings"
+                name="province"
+                required
+              ></angular2-multiselect>
+            </div>
+
+            <div class="form-group">
+              <h6>市区町村 <span class="icon-danger">*</span></h6>
+              <input
+                [(ngModel)]="rental.address1"
+                name="address1"
+                type="text"
+                class="form-control"
+                placeholder="新宿区新宿"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <h6>番地・ビル名等（任意）</h6>
+              <input
+                [(ngModel)]="rental.address2"
+                name="address2"
+                type="text"
+                class="form-control"
+                placeholder="1-1-1 ○○ビル3F"
+              />
+            </div>
+
+            <!-- <div class="form-group">
+              <h6>活動最寄駅 <span class="icon-danger">*</span></h6>
+              <div class="input-group border-input">
+                <input
+                  [(ngModel)]="rental.nearStation"
+                  name="nearStation"
+                  type="text"
+                  placeholder="新宿"
+                  class="form-control border-input"
+                  required
+                />
+                <div class="input-group-append">
+                  <span class="input-group-text">駅</span>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="form-group">
+              <h6>Instagram ID <span class="icon-danger">*</span></h6>
+              <div
+                class="input-group"
+                [ngClass]="{ 'input-group-focus': focus === true }"
+              >
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><i class="fa fa-instagram"></i
+                  ></span>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="rental.instagram"
+                  name="instagram"
+                  placeholder="Instagram ID（@は不要）"
+                  (focus)="focus = true"
+                  (blur)="focus = false"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <h6>Twitter ID（任意）</h6>
+              <div
+                class="input-group"
+                [ngClass]="{ 'input-group-focus': focus2 === true }"
+              >
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><i class="fa fa-twitter"></i
+                  ></span>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="rental.twitter"
+                  name="twitter"
+                  placeholder="Twitter ID（@は不要）"
+                  (focus)="focus2 = true"
+                  (blur)="focus2 = false"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <h6>Youtube URL（任意）</h6>
+              <input
+                type="text"
+                class="form-control border-input"
+                placeholder="Youtube URLが入力できます"
+                [(ngModel)]="rental.youtube"
+                name="youtube"
+              />
+            </div>
+            <div class="form-group">
+              <h6>Facebook URL（任意）</h6>
+              <input
+                type="text"
+                class="form-control border-input"
+                placeholder="FacebookURLが入力できます"
+                [(ngModel)]="rental.facebook"
+                name="facebook"
+              />
+            </div>
+
+            <!-- <div class="form-group">
+              <h6>
+                提供サービス時給（1万円以上推薦）
+                <span class="icon-danger">*</span>
+              </h6>
+              <div class="input-group border-input">
+                <input
+                  type="number"
+                  placeholder="時給を任意に設定できます"
+                  class="form-control border-input"
+                  [(ngModel)]="rental.hourlyPrice"
+                  name="hourlyPrice"
+                  required
+                />
+                <div class="input-group-append">
+                  <span class="input-group-text">円</span>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="form-group">
+              <h6>ギャラリー写真</h6>
+              <div class="row">
+                <div class="col-md-10 ml-auto mr-auto">
+                  <!-- <app-image-upload></app-image-upload> -->
+                  <app-image-upload-myver
+                    [inputLabel]="'ギャラリー写真１を選択'"
+                    [inputImage]="rental.gallery1"
+                    (imageUploaded)="rental.gallery1 = $event; isTouched = true"
+                  >
+                  </app-image-upload-myver>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-10 ml-auto mr-auto">
+                  <!-- <app-image-upload></app-image-upload> -->
+                  <app-image-upload-myver
+                    [inputLabel]="'ギャラリー写真２を選択'"
+                    [inputImage]="rental.gallery2"
+                    (imageUploaded)="rental.gallery2 = $event; isTouched = true"
+                  >
+                  </app-image-upload-myver>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-10 ml-auto mr-auto">
+                  <!-- <app-image-upload></app-image-upload> -->
+                  <app-image-upload-myver
+                    [inputLabel]="'ギャラリー写真３を選択'"
+                    [inputImage]="rental.gallery3"
+                    (imageUploaded)="rental.gallery3 = $event; isTouched = true"
+                  >
+                  </app-image-upload-myver>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-10 ml-auto mr-auto">
+                  <!-- <app-image-upload></app-image-upload> -->
+                  <app-image-upload-myver
+                    [inputLabel]="'ギャラリー写真４を選択'"
+                    [inputImage]="rental.gallery4"
+                    (imageUploaded)="rental.gallery4 = $event; isTouched = true"
+                  >
+                  </app-image-upload-myver>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-10 ml-auto mr-auto">
+                  <!-- <app-image-upload></app-image-upload> -->
+                  <app-image-upload-myver
+                    [inputLabel]="'ギャラリー写真５を選択'"
+                    [inputImage]="rental.gallery5"
+                    (imageUploaded)="rental.gallery5 = $event; isTouched = true"
+                  >
+                  </app-image-upload-myver>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-10 ml-auto mr-auto">
+                  <!-- <app-image-upload></app-image-upload> -->
+                  <app-image-upload-myver
+                    [inputLabel]="'ギャラリー写真６を選択'"
+                    [inputImage]="rental.gallery6"
+                    (imageUploaded)="rental.gallery6 = $event; isTouched = true"
+                  >
+                  </app-image-upload-myver>
+                </div>
+              </div>
+            </div>
+
+            <div class="row buttons-row">
+              <div class="col-md-6">
+                <button
+                  (click)="unpublishRental()"
+                  class="btn btn-outline-default btn-block btn-round"
+                >
+                  下書き保存＆外部非公開
+                </button>
+              </div>
+              <div class="col-md-6">
+                <button
+                  [disabled]="!(rentalForm.form.valid && !isClicked)"
+                  (click)="updateRental()"
+                  class="btn btn-primary btn-block btn-round"
+                >
+                  更新＆外部公開
+                </button>
+              </div>
+            </div>
+          </form>
+          <div class="space-top"></div>
+          <div *ngIf="errors && errors.length > 0" class="alert alert-danger">
+            <p *ngFor="let error of errors">{{ error.detail }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

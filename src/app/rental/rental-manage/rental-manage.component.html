@@ -1,0 +1,138 @@
+<section id="manageRentals">
+  <div
+    class="page-header page-header-xs"
+    data-parallax="true"
+    style="background-image: url('./assets/img/lp/back-image.jpg')"
+  >
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <div class="space-50"></div>
+        <div class="motto text-center">
+          <h1>投稿管理</h1>
+          <h3>投稿を管理できます</h3>
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main" *ngIf="rentals">
+    <div class="section text-center">
+      <div class="container">
+        <div class="row">
+          <ng-container
+            *ngIf="auth.getUserRole() === 'Owner' || rentals.length === 0"
+          >
+            <div class="col-md-3 col-xs-6">
+              <div class="card card-pricing">
+                <div class="card-body">
+                  <div class="card-icon">
+                    <i class="nc-icon nc-send"></i>
+                    <!-- <i class="nc-icon nc-simple-add"></i> -->
+                  </div>
+                  <!-- <h3 class="card-title">新規追加</h3> -->
+                  <p class="card-description">
+                    <a class="btn btn-primary btn-block btn-round btn-lg">
+                      新しく投稿を作成する</a
+                    >
+                  </p>
+                  <div class="card-footer"></div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="rentals.length > 0">
+            <div
+              *ngFor="let rental of rentals; let i = index"
+              class="col-md-3 col-xs-6"
+            >
+              <!-- <app-rental-incoming-list-item [booking]="bookin"></app-rental-incoming-list-item> -->
+              <div *ngIf="!rental.isShared" class="card">
+                <div class="card-body">
+                  <h6 class="card-description">
+                    {{ rental.selectedCategory }}
+                  </h6>
+                  <div class="card-description">
+                    <p>
+                      <button
+                        class="btn btn-primary btn-block btn-round"
+                        routerLink="/rentals/{{ rental._id }}/edit"
+                      >
+                        商品編集
+                      </button>
+                    </p>
+                    <!-- <p><button class="btn btn-outline-default btn-block btn-round" routerLink="/rentals/{{rental._id}}/editschedule">受付日時管理</button></p> -->
+                    <!-- <p><button class="btn btn-danger" routerLink="/rentals/manage/revenue/{{rental._id}}">この商品の売上</button></p> -->
+                    <!-- <p><button class="btn btn-danger" routerLink="/rentals/manage/bookings/{{rental._id}}">確定予約の確認</button></p> -->
+                    <p>
+                      <button
+                        class="btn btn-wd btn-danger btn-link"
+                        (click)="onDelete(rental._id)"
+                      >
+                        <i class="nc-icon nc-box"></i>&nbsp; 削除
+                      </button>
+                    </p>
+                    <!-- <hr> -->
+                  </div>
+                </div>
+                <!-- </a> -->
+                <!-- <div class="card-footer" *ngIf="payment.status === 'pending'">
+                  <button class="btn btn-sm btn-danger" (click)="acceptPayment(payment)">Accept</button>
+                  <button class="btn btn-sm" (click)="declinePayment(payment)">Decline</button>
+                </div> -->
+              </div>
+
+              <div *ngIf="rental.isShared" class="card">
+                <div class="card-body">
+                  <p class="card-description">{{ rental.description }}</p>
+                  <div class="card-description">
+                    <p>
+                      <button
+                        class="btn btn-primary btn-block btn-round"
+                        routerLink="/rentals/{{ rental._id }}/edit"
+                      >
+                        商品編集
+                      </button>
+                    </p>
+                    <!-- <p><button class="btn btn-outline-default btn-block btn-round" routerLink="/rentals/{{rental._id}}/editschedule">受付日時管理</button></p> -->
+                    <!-- <p><button class="btn btn-danger" routerLink="/rentals/manage/revenue/{{rental._id}}">この商品の売上</button></p> -->
+                    <!-- <p><button class="btn btn-danger" routerLink="/rentals/manage/bookings/{{rental._id}}">確定予約の確認</button></p> -->
+                    <p>
+                      <button
+                        class="btn btn-wd btn-danger btn-link"
+                        (click)="onDelete(rental._id)"
+                      >
+                        <i class="nc-icon nc-box"></i>&nbsp; 削除
+                      </button>
+                    </p>
+                    <!-- <hr> -->
+                  </div>
+                </div>
+                <!-- </a> -->
+                <!-- <div class="card-footer" *ngIf="payment.status === 'pending'">
+                  <button class="btn btn-sm btn-danger" (click)="acceptPayment(payment)">Accept</button>
+                  <button class="btn btn-sm" (click)="declinePayment(payment)">Decline</button>
+                </div> -->
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <div class="space-top"></div>
+        <div
+          class="pagination-area pagination-primary justify-content-center text-center"
+        >
+          <ngb-pagination
+            [collectionSize]="pageCollectionSize"
+            [(page)]="pageIndex"
+            [pageSize]="pageSize"
+            [maxSize]="5"
+            [boundaryLinks]="true"
+            aria-label="Default pagination"
+            (pageChange)="pageChange()"
+          ></ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

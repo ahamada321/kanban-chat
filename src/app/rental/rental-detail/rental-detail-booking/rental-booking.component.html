@@ -1,0 +1,125 @@
+<!-- <ng-template #Login let-c="close" let-d="dismiss"> -->
+<div class="modal-header modal-register no-border-header text-center">
+  <button
+    type="button"
+    class="close"
+    (click)="activeModal.close('Close click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h6 class="text-muted">予約リクエストフォーム</h6>
+</div>
+<div class="modal-body">
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <mat-step label="開始時間" [completed]="isSelectedDateTime">
+      <div class="space-top"></div>
+      <div class="row">
+        <div class="col-md-7 ml-auto mr-auto">
+          <app-booking-selecter
+            [rental]="rental"
+            [selectedCourseTime]="selectedCourseTime"
+            (newBookingInfo)="onBookingReady($event)"
+          >
+          </app-booking-selecter>
+        </div>
+      </div>
+    </mat-step>
+    <mat-step label="合計金額">
+      <div class="row">
+        <div class="col-md-8 mr-auto ml-auto">
+          <h2 class="title">内容確認</h2>
+          <div class="description" *ngIf="!isSelectedDateTime">
+            コース日時を選択してください！
+          </div>
+          <div class="description" *ngIf="isSelectedDateTime">
+            トレーナー名：{{ rental.rentalname }}<br />
+            日付：{{ newBooking.startAt | date: "yyyy-MM/dd-HH:mm" }} 〜
+            {{ newBooking.endAt | date: "HH:mm" }}<br />
+            <!-- 内容：{{rental.hourlyPrice}} 円 × {{selectedCourseTime / 60}} 時間<br>
+                            合計；{{rental.hourlyPrice * selectedCourseTime / 60 }} 円<br> -->
+          </div>
+          <div class="space-top"></div>
+          <div class="text-center">
+            <button
+              [disabled]="!(isSelectedDateTime && !isChangeBtnClicked)"
+              class="btn btn-primary btn-lg"
+              (click)="createBooking()"
+            >
+              予約リクエスト送信！
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-step>
+
+    <ng-template matStepperIcon="edit">
+      <mat-icon>check</mat-icon>
+    </ng-template>
+  </mat-horizontal-stepper>
+</div>
+<div class="modal-register modal-footer no-border-footer">
+  <!-- <a [routerLink]="['/login/reset']" (click)="activeModal.close('Close click')" class="btn btn-link btn-primary">パスワードをお忘れですか？</a>
+        <a [routerLink]="['/register']" (click)="activeModal.close('Close click')" class="btn btn-link btn-primary">新規会員登録はこちら</a> -->
+</div>
+<!-- </ng-template> -->
+
+<!-- 
+
+<section id="rentalDetailBooking" *ngIf="rental">
+<div class="wrapper">
+    <div class="pricing-1 section">
+        <div class="container">
+            <mat-horizontal-stepper [linear]="isLinear" #stepper>
+                <mat-step label="開始時間" [completed]="isSelectedDateTime">
+                    <div class="space-top"></div>
+                    <div class="row">
+                        <div class="col-md-7 ml-auto mr-auto">
+                            <app-booking-selecter [rental]="rental" 
+                                                [selectedCourseTime]="selectedCourseTime" 
+                                                (newBookingInfo)="onBookingReady($event)" 
+                                                (chosenDateTime)="isSelectedDateTime=$event"
+                                                >
+                            </app-booking-selecter>
+                        </div>
+                    </div>
+                </mat-step>
+                <mat-step label="合計金額">
+                    <div class="row">
+                        <div class="col-md-8 mr-auto ml-auto">
+                            <h2 class="title">Total Price</h2>
+                            <div class="description" *ngIf="!isSelectedDateTime">
+                                コース日時を選択してください！
+                            </div>    
+                            <div class="description" *ngIf="isSelectedDateTime">
+                                Trainer Name：{{rental.rentalname}}<br>
+                                Date Time：{{ newBooking.startAt | date: "yyyy-MM/dd-HH:mm" }} 〜 {{ newBooking.endAt | date: "HH:mm" }}<br>
+                                Course：{{rental.hourlyPrice}}JPY × {{selectedCourseTime / 60}}Hour = {{rental.hourlyPrice * selectedCourseTime / 60}}JPY<br>
+                                Total Price；{{rental.hourlyPrice * selectedCourseTime / 60 }}JPY<br>
+                            </div>    
+                            <div class="description" *ngIf="isSelectedDateTime && customer.id && !isChangeBtnClicked">
+                                Paying Metiod：Visa ******4242
+                                <button class="btn btn-info btn-sm" (click)="isChangeBtnClicked=true">支払い方法の変更</button>
+                            </div>
+                            <div class="space-top"></div>
+
+                            <div *ngIf="isSelectedDateTime && (!customer.id || isChangeBtnClicked)">
+                                <app-payment (paymentComfirmed)="onPaymentConfirmed($event)"></app-payment>
+                            </div>
+                            <div class="space-top"></div>
+                            <div class="text-center">
+                                <button *ngIf="!(isSelectedDateTime && (customer.id || paymentToken)) || isChangeBtnClicked" [disabled]="true" class="btn btn-lg">予約リクエスト送信！</button>
+                                <button *ngIf="isSelectedDateTime && (customer.id || paymentToken) && !isChangeBtnClicked" class="btn btn-primary btn-lg" (click)="createBooking()">予約リクエスト送信！</button>
+                            </div>
+                        </div>
+                    </div>
+              
+                </mat-step>
+            
+                <ng-template matStepperIcon="edit">
+                    <mat-icon>check</mat-icon>
+                </ng-template>
+            </mat-horizontal-stepper>
+        </div>
+    </div>
+</div>
+</section> -->

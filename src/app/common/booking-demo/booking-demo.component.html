@@ -1,0 +1,196 @@
+<button class="btn btn-primary btn-lg" (click)="open(bookingModal)">
+  <i class="fa fa-search"></i> 無料オンラインデモ予約はこちら
+</button>
+
+<ng-template #bookingModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h5 class="modal-title text-center">無料オンラインデモ予約フォーム</h5>
+    <button type="button" class="close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <mat-horizontal-stepper [linear]="false" #stepper>
+      <mat-step label="デモ希望日時" [completed]="isSelectedDateTime">
+        <div class="space-top"></div>
+        <div class="row">
+          <div class="col-md-8 ml-auto mr-auto">
+            <form>
+              <div class="form-group">
+                <div class="input-group date">
+                  <input
+                    [(ngModel)]="selectedDate"
+                    (ngModelChange)="onDateSelect($event)"
+                    name="selectedDate"
+                    [readonly]="true"
+                    [owlDateTimeFilter]="myFilter"
+                    [owlDateTime]="dt1"
+                    [owlDateTimeTrigger]="dt1"
+                    [min]="minDate"
+                    [max]="maxDate"
+                    class="form-control"
+                    placeholder="希望日付を選択"
+                  />
+                  <owl-date-time
+                    [pickerType]="'calendar'"
+                    [hideOtherMonths]="true"
+                    #dt1
+                  ></owl-date-time>
+
+                  <div class="input-group-append">
+                    <span
+                      [owlDateTimeTrigger]="dt1"
+                      class="glyphicon glyphicon-calendar input-group-text"
+                    >
+                      <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <div class="space-top"></div>
+            <div *ngIf="timeTables && timeTables.length > 0" class="info">
+              <div *ngFor="let timeTable of timeTables">
+                <p>
+                  <button
+                    *ngIf="isValidBooking(timeTable)"
+                    class="btn btn-primary"
+                    (click)="selectDateTime(timeTable, stepper)"
+                  >
+                    {{ timeTable.format("HH:mm") }} スタート
+                  </button>
+                  <button
+                    *ngIf="!isValidBooking(timeTable)"
+                    class="btn"
+                    [disabled]="true"
+                  >
+                    ブロック
+                  </button>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-step>
+      <mat-step label="御社情報">
+        <div class="row">
+          <div class="col-md-10 mr-auto ml-auto">
+            <form
+              class="contact-form"
+              [formGroup]="contactusForm"
+              (ngSubmit)="sendBooking(contactusForm)"
+            >
+              <div class="description">オンラインデモ希望日時：</div>
+              <div class="alert alert-danger" *ngIf="!isSelectedDateTime">
+                希望日時を先に選択してください
+              </div>
+              <div class="alert alert-success" *ngIf="isSelectedDateTime">
+                {{
+                  contactusForm.value.bookingDate
+                    | date: "yyyy/ MM/ dd - HH:mm スタート"
+                }}
+              </div>
+              <label>ご担当者名 <span class="icon-danger">*</span></label>
+              <div class="form-group">
+                <input
+                  formControlName="username"
+                  type="text"
+                  class="form-control"
+                  placeholder="お名前"
+                  required
+                />
+              </div>
+
+              <label>Email <span class="icon-danger">*</span></label>
+              <div class="form-group">
+                <input
+                  formControlName="email"
+                  type="email"
+                  class="form-control"
+                  placeholder="返信先メールアドレス"
+                  pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                  required
+                />
+              </div>
+
+              <label>御社名 <span class="icon-danger">*</span></label>
+              <div class="form-group">
+                <input
+                  formControlName="company"
+                  type="text"
+                  class="form-control"
+                  placeholder="御社名"
+                  required
+                />
+              </div>
+              <label>役職 <span class="icon-danger">*</span></label>
+              <div class="form-group">
+                <input
+                  formControlName="position"
+                  type="text"
+                  class="form-control"
+                  placeholder="役職"
+                  required
+                />
+              </div>
+
+              <label>備考欄</label>
+              <textarea
+                formControlName="msg"
+                type="text"
+                class="form-control"
+                rows="4"
+                placeholder="ご興味を持っていただけた背景やご質問など"
+              >
+              </textarea>
+              <div class="space-top"></div>
+              <div *ngIf="isInvalidForm('username')" class="alert alert-danger">
+                <div *ngIf="contactusForm.controls['username'].errors.required">
+                  名前は必須です.
+                </div>
+              </div>
+              <div *ngIf="isInvalidForm('email')" class="alert alert-danger">
+                <div *ngIf="contactusForm.controls['email'].errors.required">
+                  Emailは必須です.
+                </div>
+                <div *ngIf="contactusForm.controls['email'].errors.pattern">
+                  Emailを正しく入力してください.
+                </div>
+              </div>
+              <div *ngIf="isInvalidForm('company')" class="alert alert-danger">
+                <div *ngIf="contactusForm.controls['username'].errors.required">
+                  御社名は必須です.
+                </div>
+              </div>
+              <div *ngIf="isInvalidForm('position')" class="alert alert-danger">
+                <div *ngIf="contactusForm.controls['username'].errors.required">
+                  役職は必須です.
+                </div>
+              </div>
+              <div
+                *ngIf="errors && errors.length > 0"
+                class="alert alert-danger"
+              >
+                <p *ngFor="let error of errors">{{ error.detail }}</p>
+              </div>
+              <div class="text-center">
+                <button
+                  [disabled]="!contactusForm.valid || isClicked"
+                  type="submit"
+                  class="btn btn-primary btn-lg"
+                >
+                  この内容で送信
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </mat-step>
+
+      <ng-template matStepperIcon="edit">
+        <mat-icon>check</mat-icon>
+      </ng-template>
+    </mat-horizontal-stepper>
+  </div>
+  <div class="modal-register modal-footer no-border-footer"></div>
+</ng-template>

@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-md-12 ml-auto mr-auto">
+    <h3 class="title">承認待ち</h3>
+    <h5 class="description">トレーナーの返信待ちです。まだ予約確定していません！</h5>
+    <div class="space-top"></div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-10 ml-auto mr-auto">
+    <div class="table-responsive">
+      <table class="table table-shopping">
+        <thead>
+          <tr>
+            <th class="text-center">会える人</th>
+            <th>日時</th>
+            <th>状態</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let booking of bookings; let i = index">
+            <tr *ngIf="!isExpired(booking.startAt) && (booking.status==='pending' || booking.status==='re-pending')">
+              <td class="td-product">
+                <a routerLink="/rentals/{{ booking.rental._id }}">
+                  <div class="img-container">
+                    <img class="img" src="{{ booking.rental.image }}" />
+                  </div>
+                  <br>
+                  <strong>{{ booking.rental.rentalname }}</strong>
+                </a>
+              </td>
+              <td class="text-left">
+                <p>予約日付：　　{{ booking.startAt |  date: "yyyy/MM/dd" }}</p>
+                <p>開始時刻：　　{{ booking.startAt |  date: "HH:mm" }}</p>
+                <p>コース時間：　{{ booking.courseTime }} min</p>
+              </td>
+              <td class="td-product">
+                <div *ngIf="booking.status === 'pending'">
+                  <button class="btn btn-primary" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約キャンセル</button>
+                </div>
+                <div *ngIf="booking.status === 're-pending'">
+                  <p><button class="btn btn-primary" (click)="acceptPayment(booking.payment); bookingDeleteIndex = i">日時変更を受入れる</button></p>
+                  <p><button class="btn btn-gray" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">&nbsp; 予約をキャンセル&nbsp; </button></p>
+                  <p><button class="btn btn-danger" (click)="openDialog(booking)">&nbsp; 日時を再調整する&nbsp; </button></p>
+                </div>
+              </td>
+
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

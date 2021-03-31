@@ -1,0 +1,67 @@
+<section id="userBookings">
+  <div
+    class="page-header page-header-xs"
+    data-parallax="true"
+    style="background-image: url('./assets/img/lp/back-image.jpg')"
+  >
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <div class="space-50"></div>
+        <h1>予約一覧</h1>
+        <h3>あなたの予約一覧です</h3>
+        <br />
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="section text-center">
+      <div class="container">
+        <!-- <ngb-tabset [justify]="'center'" type="pills" class="nav-pills-primary">
+          <ngb-tab title="予約一覧">
+            <ng-template ngbTabContent>
+
+              <ng-container *ngIf="pendingBookings && acceptedBookings && finishedBookings">
+                <ng-container *ngIf="pendingBookings.length==0 && acceptedBookings.length==0 && finishedBookings.length==0">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="card card-pricing">
+                        <a routerLink="/rentals">
+                          <div class="card-body">
+                            <h3 class="card-title">まだ予約はありません！</h3>
+                            <p class="card-description"></p>
+                            <div class="card-footer">
+                              <p class="btn btn-warning btn-round">トレーナーを探しに行く</p>
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                
+                <app-user-mybookings-list-pending *ngIf="pendingBookings.length>0" [bookings]="pendingBookings"></app-user-mybookings-list-pending>
+
+                <app-user-mybookings-list-active *ngIf="acceptedBookings.length>0" [bookings]="acceptedBookings"></app-user-mybookings-list-active>
+  
+                <app-user-mybookings-list-finished *ngIf="finishedBookings.length>0" [bookings]="finishedBookings"></app-user-mybookings-list-finished>
+  
+                <app-user-mybookings-list-reviewed *ngIf="finishedBookings.length>0" [bookings]="finishedBookings"></app-user-mybookings-list-reviewed>
+
+              </ng-container>
+
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="期限切れ">
+            <ng-template ngbTabContent>
+
+              <app-user-mybookings-list-expired *ngIf="expiredBookings && expiredBookings.length>0" [bookings]="expiredBookings"></app-user-mybookings-list-expired>
+
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset> -->
+      </div>
+    </div>
+  </div>
+</section>

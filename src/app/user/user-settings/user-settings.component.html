@@ -1,0 +1,129 @@
+<div class="wrapper">
+  <div
+    class="page-header page-header-small"
+    style="background-image: url('./assets/img/lp/back-image.jpg')"
+  >
+    <div class="filter"></div>
+  </div>
+  <div class="profile-content section">
+    <div class="container">
+      <div class="row">
+        <div class="profile-picture">
+          <div class="fileinput fileinput-new" data-provides="fileinput">
+            <div class="fileinput-new img-no-padding">
+              <img src="./assets/img/faces/sample.jpg" alt="..." />
+            </div>
+            <div class="name">
+              <h4 class="title text-center">
+                山下 空<br />
+                <small>生協職員 1年目</small>
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h5 class="text-center">
+        <small>現在保有ポイント： 10ポイント</small>
+      </h5>
+      <div class="row">
+        <div class="col-md-6 ml-auto mr-auto text-center">
+          <p>
+            An artist of considerable range, Chet Faker — the name taken by
+            Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and
+            records all of his own music, giving it a warm, intimate feel with a
+            solid groove structure.
+          </p>
+          <br />
+          <button class="btn btn-outline-default btn-round">
+            <i class="fa fa-cog"></i> 詳細設定
+          </button>
+        </div>
+      </div>
+      <br />
+      <div class="nav-tabs-navigation">
+        <div class="nav-tabs-wrapper">
+          <ul ngbNav #nav="ngbNav" class="nav-tabs justify-content-center">
+            <li ngbNavItem>
+              <a ngbNavLink>フォロー中</a>
+              <ng-template ngbNavContent>
+                <div class="row following" id="follows">
+                  <div class="col-md-6 ml-auto mr-auto">
+                    <ul class="list-unstyled follows">
+                      <li>
+                        <div class="row">
+                          <div class="col-md-2 col-3">
+                            <img
+                              src="./assets/img/faces/sample2.jpg"
+                              alt="Circle Image"
+                              class="img-circle img-no-padding img-responsive"
+                            />
+                          </div>
+                          <div class="col-md-7 col-4">
+                            <h6>鈴木 太郎<br /><small>○○大学○年</small></h6>
+                          </div>
+                          <div class="col-md-3 col-2">
+                            <div class="unfollow">
+                              <div class="form-check">
+                                <label class="form-check-label">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    checked
+                                  />
+                                  <span class="form-check-sign"></span>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <hr />
+                      <li>
+                        <div class="row">
+                          <div class="col-md-2 col-3">
+                            <img
+                              src="./assets/img/faces/sample4.png"
+                              alt="Circle Image"
+                              class="img-circle img-no-padding img-responsive"
+                            />
+                          </div>
+                          <div class="col-md-7 col-4">
+                            <h6>鈴木 花子<br /><small>○○不動産</small></h6>
+                          </div>
+                          <div class="col-md-3 col-2">
+                            <div class="unfollow">
+                              <div class="form-check">
+                                <label class="form-check-label">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                  />
+                                  <span class="form-check-sign"></span>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+            <li ngbNavItem>
+              <a ngbNavLink>フォロワー</a>
+              <ng-template ngbNavContent>
+                <h3 class="text-muted">まだフォロワーはいません</h3>
+                <br />
+                <button class="btn btn-warning btn-round">Find artists</button>
+              </ng-template>
+            </li>
+          </ul>
+          <div [ngbNavOutlet]="nav" class="mt-2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
